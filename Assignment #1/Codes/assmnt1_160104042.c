@@ -1,6 +1,6 @@
 /**
  * Author:    Syed Sanzam
- * Subject:   File Trimming
+ * Subject:   Removing Comments, Newline, Tabs and Whitespaces from a Source File
  * Created:   7.14.2019
  * 
  **/
