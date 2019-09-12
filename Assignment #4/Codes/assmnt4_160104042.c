@@ -2,8 +2,8 @@
 ** AUTHOR: Syed Sanzam
 ** TOPIC:  Generating Errors Present in a Source File
 ** DATE:   September 12, 2019
-** COMMENT: Redundancy is ignored intentionally, the unused parts of the code are there for further modification. 
-            There's a lot going on, quite messy.I could've done a better job. The capacity of the code is quite limited. 
+** COMMENT: Redundancy is ignored intentionally, the unused parts of the code are there for further modification.
+            There's a lot going on, quite messy.I could've done a better job. The capacity of the code is quite limited.
 */
 
 #include<stdio.h>
@@ -245,7 +245,7 @@ void identifyToken(char str[20])
         }
         else if(isOperator(str))
         {
-
+            //later
         }
 
         else
@@ -275,103 +275,98 @@ void trimSourceFile()
     fpRead = fopen("input1.txt","r");
     fpWrite = fopen("input2.txt","w");
 
-	char c;
+    char c;
 
-	while( (c = fgetc(fpRead)) != EOF)
-	{
+    while( (c = fgetc(fpRead)) != EOF)
+    {
 
-		//Single Line Comment Check
-		if(c == '\n')
-		{
-		    fputs("\n",fpWrite);
-			c = fgetc(fpRead);
-                if(c == '(')
+        //Single Line Comment Check
+        if(c == '\n')
+        {
+            fputs("\n",fpWrite);
+            c = fgetc(fpRead);
+            if(c == '(')
+            {
+                //fputs(" ",fpWrite);
+
+            }
+            ungetc(c,fpRead);
+        }
+        else if(c == '/')
+        {
+            char d;
+            char e;
+            char f;
+
+            d = fgetc(fpRead);
+            if(d == '/')
+            {
+                while( (e = fgetc(fpRead)) != EOF)
                 {
-                    //fputs(" ",fpWrite);
-
-                }
-                ungetc(c,fpRead);
-		}
-		else if(c == '/')
-		{
-			char d;
-			char e;
-			char f;
-
-			d = fgetc(fpRead);
-			if(d == '/')
-			{
-				while( (e = fgetc(fpRead)) != EOF)
-				{
-					if(e == '\n')
+                    if(e == '\n')
                     {
                         //fputc('\n',fpWrite);
-						break;
+                        break;
                     }
-				}
+                }
 
                 fputs("HELLO!",fpWrite);
+            }
 
-			}
-
-			//Block Comment Check
-			if(d == '*')
-			{
-				while( (e = fgetc(fpRead)) != EOF)
-				{
-					if(e == '/')
-					{
-						f = fgetc(fpRead);
-						break;
-					}
+            //Block Comment Check
+            if(d == '*')
+            {
+                while( (e = fgetc(fpRead)) != EOF)
+                {
+                    if(e == '/')
+                    {
+                        f = fgetc(fpRead);
+                        break;
+                    }
 
                     if(e == '\n')
                     {
                         fputc('\n',fpWrite);
                     }
-				}
-			}
-		}
-			//Whitespace Check
+                }
+            }
+        }
+        //Whitespace Check
 
 
-		else if(c == ' ')
-		{
-			char b;
-			char s;
+        else if(c == ' ')
+        {
+            char b;
+            char s;
 
-			b = fgetc(fpRead);
+            b = fgetc(fpRead);
 
-			if(b != '(' && b!= ' ')
-			{
-				fputc(c,fpWrite);
+            if(b != '(' && b!= ' ')
+            {
+                fputc(c,fpWrite);
+            }
 
-			}
-
-
-
-			fputc(b,fpWrite);
-			while ((s = fgetc(fpRead)) != EOF)
-			{
-				if(s != ' ')
-					break;
-			}
-			fputc(s,fpWrite);
-		}
+            fputc(b,fpWrite);
+            while ((s = fgetc(fpRead)) != EOF)
+            {
+                if(s != ' ')
+                    break;
+            }
+            fputc(s,fpWrite);
+        }
 
 
-		else
-		{
+        else
+        {
 
-			//Newline & Tab Check
-			if(c != '\t' && c != '\n' && c != ' ')
-			{
+            //Newline & Tab Check
+            if(c != '\t' && c != '\n' && c != ' ')
+            {
                 fputc(c,fpWrite);
                 c = fgetc(fpRead);
                 if(c == '(')
                 {
                     //fputs(" ",fpWrite);
-
                 }
                 ungetc(c,fpRead);
 
@@ -388,13 +383,13 @@ void trimSourceFile()
                     //fputs(" ",fpWrite);
                 }
 
-			}
+            }
 
-		}
-	}
+        }
+    }
 
-	fclose(fpRead);
-	fclose(fpWrite);
+    fclose(fpRead);
+    fclose(fpWrite);
 }
 
 void recongniseLexemes()
@@ -420,9 +415,9 @@ void recongniseLexemes()
 
         if(ch == '\n')
         {
-           
+
             fputc(ch,fpWrite);
-            
+
         }
 
         if ( !(ch == ' ' || ch == '+' || ch == '-' || ch == '*' ||
@@ -474,7 +469,6 @@ void recongniseLexemes()
                             fputc(testC,fpWrite2);
                             fputs("]",fpWrite2);
 
-
                             printf("%c%c ",ch,testC);
                             fputc(ch,fpWrite);
                             fputc(testC,fpWrite);
@@ -491,7 +485,6 @@ void recongniseLexemes()
                         fputc(ch,fpWrite2);
                         fputs("]",fpWrite2);
 
-
                         fputc(ch,fpWrite);
                         fputc(' ',fpWrite);
 
@@ -505,8 +498,6 @@ void recongniseLexemes()
 
     fclose(fpWrite);
     fclose(fpWrite2);
-
-
 }
 
 
@@ -546,7 +537,6 @@ void prepareIntermediateFile()
     fclose(fpWrite);
 }
 
-
 void createSymbolTable()
 {
     fpRead = fopen("input3.txt","r");
@@ -556,7 +546,7 @@ void createSymbolTable()
     char funcName[MAX];
     char ch;
     char buffer[MAX];
-    
+
     int j = 0;
 
     bool isInsideFunction = false;
@@ -774,9 +764,9 @@ void detectErrors()
             }
 
             tokenCount++;
-             //printf("\nValue of buffer:%s\n",buffer);
-             //printf("\nValue of previous buffer:%s\n",previousBuffer);
-             //strcpy(previousBuffer,buffer);
+            //printf("\nValue of buffer:%s\n",buffer);
+            //printf("\nValue of previous buffer:%s\n",previousBuffer);
+            //strcpy(previousBuffer,buffer);
 
             if(strcmp(buffer,previousBuffer) == 0 && !duplicatePrinted)
             {
@@ -785,8 +775,6 @@ void detectErrors()
             }
 
             strcpy(previousBuffer,buffer);
-
-            
 
             if(strcmp(buffer,"if") == 0)
             {
@@ -801,7 +789,7 @@ void detectErrors()
                 if(!ifFound)
                 {
                     printf("Unmatched else at line: %s\n",lineCountBuffer);
-                    
+
                 }
                 ifFound = false;
             }
@@ -817,7 +805,7 @@ void detectErrors()
 
             else if(strcmp(buffer,"}") == 0)
             {
-            
+
                 closingBraceFound = true;
                 openingBraceFound = false;
                 if(!bracePrinted)
@@ -841,14 +829,14 @@ void detectErrors()
                         buffer[j] = '\0';
                         j = 0;
                         //printf("\nvalue of id:%s\n",buffer);
-                        
+
                         int i = 0;
                         int sameIdOccurence = 0;
                         bool isIdentifierValid = false;
                         bool checkRedeclaration = false;
                         char tempScope[MAX];
 
-                        for(i = 0; i < tableCount;i++)
+                        for(i = 0; i < tableCount; i++)
                         {
                             if(strcmp(symbolTable[i].name,buffer) == 0)
                             {
@@ -893,13 +881,15 @@ void detectErrors()
 int main()
 {
     trimSourceFile();
-    recongniseLexemes(); 
-    createSymbolTable(); 
+    recongniseLexemes();
+    createSymbolTable();
     prepareIntermediateFile();
     displayIntermediateFile();
     detectErrors();
 
     return 0;
 }
+
+
 
 
