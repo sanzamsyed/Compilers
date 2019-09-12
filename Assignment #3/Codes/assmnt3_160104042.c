@@ -1,7 +1,8 @@
 /*
 **AUTHOR:Syed Sanzam
-**Date: August 27, 2019
-**Code Condition: Not great, not terrible
+**DATE: August 27, 2019
+**TITLE: Creating Symbol Table
+**COMMENT: Not great, not terrible
 */
 
 #include <stdio.h>
